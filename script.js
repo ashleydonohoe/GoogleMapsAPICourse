@@ -18,19 +18,20 @@ function initMap() {
   ];
 
   var largeInfowindow = new google.maps.InfoWindow();
+  var list = document.getElementById("park-locations");
 
   for(var i = 0; i < locations.length; i++) {
     var position = locations[i].location;
     var title = locations[i].title;
 
-    var iconBase = 'http://maps.google.com/mapfiles/kml/paddle/pink-blank.png';
+    //var iconBase = "http://maps.google.com/mapfiles/kml/paddle/pink-blank.png";
 
     var marker = new google.maps.Marker( {
       position: position,
       title: title,
       animation: google.maps.Animation.DROP,
-      id: i,
-      icon: "pink-blank.png"
+      id: i
+      //icon: iconBase
     });
 
     markers.push(marker);
@@ -38,7 +39,12 @@ function initMap() {
     marker.addListener("click", function() {
       populateInfoWindow(this, largeInfowindow);
     });
-  }
+
+    var listItem = document.createElement("li");
+    listItem.setAttribute("class", "search-item");
+    listItem.innerHTML = locations[i].title;
+    list.appendChild(listItem);
+  } // end for loop for locations
 
   document.getElementById("show-listings").addEventListener("click", showListings);
   document.getElementById("hide-listings").addEventListener("click", hideListings);
